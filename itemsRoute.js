@@ -4,8 +4,8 @@ const db = require("./fakeDb");
 const router = new express.Router();
 
 router.get("/", function (req, res) {
-  const allItems = db.items;
-  return res.json({ allItems });
+  const items = db.items;
+  return res.json({ items });
 });
 
 router.post("/", function (req, res) {
@@ -18,6 +18,9 @@ router.post("/", function (req, res) {
 router.get("/:name", function (req, res) {
   const itemIndex = db.items.findIndex(item => item.name === req.params.name)
   const item = db.items[itemIndex];
+  if (item === undefined) {
+
+  }
   return res.json({ item }) // FIXME: Why the squiggly brackets?
 })
 
@@ -28,7 +31,7 @@ router.patch("/:name", function (req, res) {
   const updatedPrice = req.body.price;
   updatingItem.name = updatedName;
   updatingItem.price = updatedPrice;
-  return res.json({updatingItem})
+  return res.json({ updatingItem })
 })
 
 
@@ -38,7 +41,7 @@ router.delete("/:name", function (req, res) {
   const updatingItemIndex = db.items.findIndex(item => item.name === req.params.name)
   db.items.splice(updatingItemIndex, 1)
 
-  return res.json({message})
+  return res.json({ message })
 })
 
 
