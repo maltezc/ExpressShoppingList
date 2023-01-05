@@ -66,7 +66,7 @@ describe("POST /items", function () {
             });
         expect(resp.statusCode).toEqual(201); //should this be 200?
         expect(resp.body).toEqual({
-            "item": {
+            "added": {
                 "name": "taco",
                 "price": 2
             }
