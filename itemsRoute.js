@@ -17,16 +17,30 @@ router.post("/", function (req, res) {
 
 router.get("/:name", function (req, res) {
   const itemIndex = db.items.findIndex(item => item.name === req.params.name)
-  debugger;
   const item = db.items[itemIndex];
-  return res.json({ item }) //Why the squiggly brackets?
+  return res.json({ item }) // FIXME: Why the squiggly brackets?
 })
 
 router.patch("/:name", function (req, res) {
   const updatingItemIndex = db.items.findIndex(item => item.name === req.params.name)
-  const updatingItem = db.items[updatingItemIndex]
-  updatingItem.name
+  const updatingItem = db.items[updatingItemIndex];
+  const updatedName = req.body.name;
+  const updatedPrice = req.body.price;
+  updatingItem.name = updatedName;
+  updatingItem.price = updatedPrice;
+  return res.json({updatingItem})
 })
+
+
+router.delete("/:name", function (req, res) {
+  const message = "deleted"
+
+  const updatingItemIndex = db.items.findIndex(item => item.name === req.params.name)
+  db.items.splice(updatingItemIndex, 1)
+
+  return res.json({message})
+})
+
 
 
 module.exports = router;
